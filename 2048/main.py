@@ -56,16 +56,8 @@ class Tile:
     def draw(self, window):
         pygame.draw.rect(window, self.get_color(), (self.x, self.y, RECT_WIDTH, RECT_HEIGHT))
         text = FONT.render(str(self.value), True, FONT_COLOR)
-        #텍스트 위치 수정필요
+        #텍스트 위치 왜이럼 수정해야겠다
         window.blit(text, (self.x-RECT_WIDTH/2, self.y-RECT_HEIGHT/2))
-
-    # def set_pos(self):
-
-    
-    # def move(self):
-    #     if
-
-
 
 def draw_grid(window):
     for row in range(1, ROWS):
@@ -86,22 +78,21 @@ def draw(window, tiles):
 
     pygame.display.update()
 
-# def get_random_pos(tiles):
-
-
 n = 1
 def generate_tiles():
     tiles = {}
     birth = [2,4]
     for i in range(2):
-        row, col = get_random_pos(tiles)
+        #수정해야한다.
+        row, col = 1
         tiles[str(n)] = Tile(random.choice(birth),row,col)
     return tiles
 
 def main(window):
     clock = pygame.time.Clock()
     run = True
-    tiles = generate_tiles()
+    tiles = {}
+    tiles = generate_tiles(tiles)
 
     while run:
         clock.tick(FPS)
