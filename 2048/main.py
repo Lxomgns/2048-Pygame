@@ -78,14 +78,17 @@ def draw(window, tiles):
 
     pygame.display.update()
 
-n = 1
-def generate_tiles():
-    tiles = {}
+def generate_tiles(tiles):
     birth = [2,4]
     for i in range(2):
-        #수정해야한다.
-        row, col = 1
-        tiles[str(n)] = Tile(random.choice(birth),row,col)
+        while (True):
+            row = random.randrange(0, 8)
+            col = random.randrange(0, 8)
+            if (str(row)+str(col) in tiles):
+                pass
+            else:
+                break
+        tiles[f"{row}{col}"] = Tile(random.choice(birth),row,col)
     return tiles
 
 def main(window):
