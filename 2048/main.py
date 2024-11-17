@@ -56,11 +56,10 @@ class Tile:
     def draw(self, window):
         pygame.draw.rect(window, self.get_color(), (self.x, self.y, RECT_WIDTH, RECT_HEIGHT))
         text = FONT.render(str(self.value), True, FONT_COLOR)
-        #텍스트 위치 왜이럼 수정해야겠다
-        window.blit(text, (self.x-RECT_WIDTH/2, self.y-RECT_HEIGHT/2))
+        window.blit(text, (self.x+RECT_WIDTH/2-text.get_width()/2, self.y+RECT_HEIGHT/2-text.get_height()/2))
 
 def draw_grid(window):
-    for row in range(1, ROWS):
+    for row in range(1, ROWS-1):
         y = row * RECT_HEIGHT
         pygame.draw.line(window, OUTLINE_COLOR, (0, y), (WIDTH, y), OUTLINE_THICKNESS)
 
@@ -82,8 +81,8 @@ def generate_tiles(tiles):
     birth = [2,4]
     for i in range(2):
         while (True):
-            row = random.randrange(0, 8)
-            col = random.randrange(0, 8)
+            row = random.randrange(0, ROWS)
+            col = random.randrange(0, COLS)
             if (str(row)+str(col) in tiles):
                 pass
             else:
