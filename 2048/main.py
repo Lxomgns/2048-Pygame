@@ -2,6 +2,8 @@ import pygame
 import random
 import math
 
+import pygame.camera
+
 pygame.init()
 
 FPS = 60
@@ -57,9 +59,13 @@ class Tile:
         pygame.draw.rect(window, self.get_color(), (self.x, self.y, RECT_WIDTH, RECT_HEIGHT))
         text = FONT.render(str(self.value), True, FONT_COLOR)
         window.blit(text, (self.x+RECT_WIDTH/2-text.get_width()/2, self.y+RECT_HEIGHT/2-text.get_height()/2))
+    
+    def move(self, delta):
+        self.x += delta[0]
+        self.y += delta[1]
 
 def draw_grid(window):
-    for row in range(1, ROWS-1):
+    for row in range(1, ROWS):
         y = row * RECT_HEIGHT
         pygame.draw.line(window, OUTLINE_COLOR, (0, y), (WIDTH, y), OUTLINE_THICKNESS)
 
@@ -76,6 +82,23 @@ def draw(window, tiles):
         tile.draw(window)
 
     pygame.display.update()
+
+def move_tiles(window, tiles, clock, direction):
+    #와 슈발 이거 어케 만들지 에반데? 하..
+    updated = True
+    if direction == "left":
+        delta = [-MOVE_VEL, 0]
+    elif direction == "right":
+        delta = [MOVE_VEL, 0]
+    elif direction == "up":
+        delta = [0, -MOVE_VEL]
+    elif direction == "down":
+        delta = [0, MOVE_VEL]
+
+    while updated:
+        clock.tick(FPS)
+        updated = False
+        
 
 def generate_tiles(tiles):
     birth = [2,4]
